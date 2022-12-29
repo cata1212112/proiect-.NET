@@ -1,0 +1,14 @@
+D:\proiect.NET\proiect-.NET\proiect\DAL\bin\Debug\net6.0\DAL.deps.json
+D:\proiect.NET\proiect-.NET\proiect\DAL\bin\Debug\net6.0\DAL.runtimeconfig.json
+D:\proiect.NET\proiect-.NET\proiect\DAL\bin\Debug\net6.0\DAL.dll
+D:\proiect.NET\proiect-.NET\proiect\DAL\bin\Debug\net6.0\DAL.pdb
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.csproj.AssemblyReference.cache
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.AssemblyInfoInputs.cache
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.AssemblyInfo.cs
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.csproj.CoreCompileInputs.cache
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.dll
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\refint\DAL.dll
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.pdb
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\DAL.genruntimeconfig.cache
+D:\proiect.NET\proiect-.NET\proiect\DAL\obj\Debug\net6.0\ref\DAL.dll
