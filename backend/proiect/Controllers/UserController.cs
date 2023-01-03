@@ -66,10 +66,16 @@ namespace proiect.Controllers
         }
 
         [Authorization(Role.Admin)]
-        [HttpGet("admin_utilizatori")]
+        [HttpGet("allusers")]
         public IActionResult GetAllUsers()
         {
             return Ok(_userService.GetAllUsers());
+        }
+
+        [HttpGet("user/{id}")]
+        public IActionResult GetUser(Guid id)
+        {
+            return Ok(_userService.GetById(id));
         }
     }
 }
