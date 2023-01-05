@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AuthRoutingModule} from "./auth-routing.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatLegacyButtonModule} from "@angular/material/legacy-button";
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -10,7 +14,12 @@ import {AuthRoutingModule} from "./auth-routing.module";
   declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    FormsModule,
+    MatInputModule,
+    MatLegacyButtonModule,
+    ReactiveFormsModule,
+    MatCardModule
   ]
 })
 export class AuthModule { }

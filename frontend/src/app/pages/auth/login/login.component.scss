@@ -1,0 +1,34 @@
+#formular {
+  top: 10%;
+  left: 35%;
+  right: 35%;
+  width: 30%;
+  align-items: center;
+  background-color: #c9dcff;
+}
+
+#form {
+  display: grid;
+  grid-template: "a"
+                 "b"
+                 "c";
+}
+
+#buton {
+  margin-top: 5%;
+  grid-area: c;
+  background-color: #91b7fc;
+  margin-bottom: 5%;
+}
+
+#username {
+  margin-top: 10%;
+  grid-area: a;
+  margin-bottom: 5%;
+}
+
+#password {
+  grid-area: b;
+  margin-bottom: 5%;
+
+}

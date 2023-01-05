@@ -106,13 +106,7 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("ProfilePictures");
                 });
@@ -133,6 +127,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -143,11 +138,25 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PictueID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PictueID")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -216,15 +225,15 @@ namespace DAL.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("DAL.Models.ProfilePicture", b =>
+            modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.HasOne("DAL.Models.User", "User")
-                        .WithOne("Picture")
-                        .HasForeignKey("DAL.Models.ProfilePicture", "UserID")
+                    b.HasOne("DAL.Models.ProfilePicture", "Picture")
+                        .WithOne("User")
+                        .HasForeignKey("DAL.Models.User", "PictueID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Picture");
                 });
 
             modelBuilder.Entity("DAL.Models.UserCommentOnPost", b =>
@@ -279,11 +288,14 @@ namespace DAL.Migrations
                     b.Navigation("UserLikesPostList");
                 });
 
+            modelBuilder.Entity("DAL.Models.ProfilePicture", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.Navigation("Picture")
-                        .IsRequired();
-
                     b.Navigation("Posts");
 
                     b.Navigation("UserCommentOnPostList");

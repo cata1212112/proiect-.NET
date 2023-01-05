@@ -14,8 +14,6 @@ namespace DAL.Helpers.Mapper
         public MapperProfile()
         {
             CreateMap<User, UserResponseDTO>();
-
-            CreateMap<List<User>, List<UserResponseDTO>>();
         }
     }
 }

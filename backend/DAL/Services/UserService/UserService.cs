@@ -10,6 +10,9 @@ using BCryptNet = BCrypt.Net.BCrypt;
 using System.Threading.Tasks;
 using AutoMapper;
 using DAL.Helpers.JwtUtils;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DAL.Services.UserService
 {
@@ -28,7 +31,14 @@ namespace DAL.Services.UserService
 
         public List<UserResponseDTO> GetAllUsers()
         {
-            List<UserResponseDTO> rez = _mapper.Map<List<UserResponseDTO>>(_userRepository.GetAllAsync());
+            List<UserResponseDTO> rez = new List<UserResponseDTO>();
+
+            var lista = _userRepository.GetAllAsync();
+
+            foreach (var elem in lista.Result)
+            {
+                rez.Add(_mapper.Map<UserResponseDTO>(elem));
+            }
             return rez;
         }
 
@@ -46,21 +56,48 @@ namespace DAL.Services.UserService
                 return null; //or throw exception
             }
 
-
+            Debug.WriteLine("haideee");
             // jwt generation
             var jwtToken = _jwtUtils.GenerateJwtToken(user);
+            Debug.WriteLine(jwtToken);
             return new UserResponseDTO(user, jwtToken);
         }
 
         public async Task Create(User newUser)
         {
             await _userRepository.CreateAsync(newUser);
+            Debug.WriteLine("hai fa mergi odata");
             await _userRepository.SaveAsync();
         }
 
         public User GetById(Guid id)
         {
             return _userRepository.FindByIdAsync(id).Result;
+        }
+
+        public User GetByUsername(string username)
+        {
+            return _userRepository.GetByUserName(username);
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _userRepository.GetByEmail(email);
+        }
+
+        public bool IsAdmin(string token)
+        {
+            var userID =  _jwtUtils.ValidateJwtToken(token);
+            if (userID == Guid.Empty)
+            {
+                return false;
+            }
+            User user = GetById(userID);
+            if (user.Role == Models.Enums.Role.Admin)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

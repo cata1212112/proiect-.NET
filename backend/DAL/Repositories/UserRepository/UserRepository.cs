@@ -15,6 +15,11 @@ namespace DAL.Repositories.UserRepository
         {
         }
 
+        public User GetByEmail(string email)
+        {
+            return _table.FirstOrDefault(x => x.Email.Equals(email));
+        }
+
         public User GetByUserName(string username)
         {
             return _table.FirstOrDefault(x => x.Username.Equals(username));

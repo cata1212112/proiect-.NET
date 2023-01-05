@@ -1,7 +1,8 @@
 ﻿using DAL.Helpers.JwtUtils;
 using DAL.Services.UserService;
+using Microsoft.AspNetCore.Http;
 
-namespace proiect.Helpers.Middleware
+namespace DAL.Helpers.Middleware
 {
     public class JwtMiddleware
     {
@@ -12,7 +13,7 @@ namespace proiect.Helpers.Middleware
             _nextRequestDelegate = requestDelegate;
         }
 
-        public async Task Invoke(HttpContext httpContext, IUserService usersService, JwtUtils jwtUtils)
+        public async Task Invoke(HttpContext httpContext, IUserService usersService, IJwtUtils jwtUtils)
         {
             var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split("").Last();
 

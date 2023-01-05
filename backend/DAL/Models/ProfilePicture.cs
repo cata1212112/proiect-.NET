@@ -10,7 +10,6 @@ namespace DAL.Models
     {
         public string Picture { get; set; } = String.Empty;
 
-        public Guid UserID { get; set; }
         public User User { get; set; }
     }
 }

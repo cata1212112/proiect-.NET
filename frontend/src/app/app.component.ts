@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {LoggedUser} from "./DTOs/LoggedUser";
+import {AuthService} from "./core/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private readonly authservice:AuthService) {
+  }
+
+  isLogged() {
+    return this.authservice.isLoggedIn();
+  }
+
+  isAdmin() {
+    return this.authservice.isAdmin();
+  }
 }

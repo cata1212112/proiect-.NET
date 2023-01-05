@@ -13,19 +13,25 @@ import { MeniuComponent } from './shared/meniu/meniu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatLegacyListModule} from "@angular/material/legacy-list";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {MatLegacyButtonModule} from "@angular/material/legacy-button";
+import {MatButtonModule} from "@angular/material/button";
+import { UserviewComponent } from './shared/userview/userview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MeniuComponent
+    MeniuComponent,
+    UserviewComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatLegacyListModule
+    FormsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

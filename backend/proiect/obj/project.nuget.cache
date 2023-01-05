@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "SWtkMR57TpHxILjxig8ynLdZnU/UXlvS0i1wKXKYIeLncB9vdOBwZN6jVfNYDq5mk7FSxOfVUiPRlEc2dihWHA==",
+  "dgSpecHash": "OlSL5fNrp4ARc5S2dGLHOyYtx6uOdqNE62KY7X9YfKsNazv0O2Nz9aN2jeb4crP15OnCV5bmTR8WgAeS/ttvLQ==",
   "success": true,
   "projectFilePath": "D:\\proiect.NET\\proiect-.NET\\backend\\proiect\\proiect.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Cata\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\Cata\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
+    "C:\\Users\\Cata\\.nuget\\packages\\awssdk.core\\3.7.103.10\\awssdk.core.3.7.103.10.nupkg.sha512",
+    "C:\\Users\\Cata\\.nuget\\packages\\awssdk.s3\\3.7.101.48\\awssdk.s3.3.7.101.48.nupkg.sha512",
     "C:\\Users\\Cata\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Cata\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Cata\\.nuget\\packages\\bcrypt\\1.0.0\\bcrypt.1.0.0.nupkg.sha512",

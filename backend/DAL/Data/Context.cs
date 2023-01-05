@@ -1,7 +1,9 @@
 ﻿using DAL.Models;
+using DAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,5 +89,28 @@ namespace DAL.Data
           
             base.OnModelCreating(modelBuilder);
         }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            Debug.WriteLine("a intrat in savechanges");
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                Debug.WriteLine((BaseEntity)entityEntry.Entity);
+                ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Now;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((BaseEntity)entityEntry.Entity).DateCreated = DateTime.Now;
+                }
+            }
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+      
     }
 }

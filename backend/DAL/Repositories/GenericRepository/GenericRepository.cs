@@ -28,7 +28,7 @@ namespace DAL.Repositories.GenericRepository
         }
 
         public async Task CreateAsync(TEntity entity)
-        {
+        {   
             await _table.AddAsync(entity);
         }
 

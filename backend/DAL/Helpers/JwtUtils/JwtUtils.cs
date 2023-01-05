@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -23,7 +24,9 @@ namespace DAL.Helpers.JwtUtils
         public string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var appPrivateKey = Encoding.ASCII.GetBytes(_appSettings.JwtToken);
+            Debug.WriteLine("tokenul este");
+            Debug.WriteLine(_appSettings.JwtToken);
+            var appPrivateKey = Encoding.ASCII.GetBytes("catacatacatacatacatacatacatacatacata");
 
             var tokenDesriptor = new SecurityTokenDescriptor
             {
@@ -36,8 +39,9 @@ namespace DAL.Helpers.JwtUtils
             };
 
             var token = tokenHandler.CreateToken(tokenDesriptor);
-
-            return tokenHandler.WriteToken(token);
+            Debug.WriteLine("token");
+            Debug.WriteLine(token)
+;           return tokenHandler.WriteToken(token);
         }
 
         public Guid ValidateJwtToken(string token)
@@ -48,28 +52,32 @@ namespace DAL.Helpers.JwtUtils
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var appPrivateKey = Encoding.ASCII.GetBytes(_appSettings.JwtToken);
+            var appPrivateKey = Encoding.ASCII.GetBytes("catacatacatacatacatacatacatacatacata");
 
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(appPrivateKey),
-                ValidateIssuer = true,
+                ValidateIssuer = false,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero,
             };
-
+           
             try
             {
+                Debug.WriteLine("a aj1");
+                Debug.WriteLine(token);
                 tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
-
+                Debug.WriteLine("a ajuns aici1");
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = new Guid(jwtToken.Claims.FirstOrDefault(x => x.Type == "id").Value);
-
+                Debug.WriteLine("a ajuns aici2");
                 return userId;
             }
-            catch
-            {
+            catch (SecurityTokenInvalidIssuerException e)
+            {   
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine("a ajuns aici3");
                 return Guid.Empty;
             }
         }

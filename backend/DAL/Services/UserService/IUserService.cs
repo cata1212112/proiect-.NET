@@ -16,5 +16,10 @@ namespace DAL.Services.UserService
         UserResponseDTO Atuhentificate(UserAuthDTO model);
         Task Create(User newUser);
         User GetById(Guid id);
+
+        User GetByUsername(string username);
+        User GetByEmail(string email);
+
+        bool IsAdmin(string token);
     }
 }

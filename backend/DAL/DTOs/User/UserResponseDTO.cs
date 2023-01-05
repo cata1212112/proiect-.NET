@@ -15,6 +15,12 @@ namespace DAL.DTOs.User
         public string LastName { get; set; }
 
         public string Token { get; set; }
+        public bool Admin { get; set; }
+
+        public UserResponseDTO()
+        {
+
+        }
 
         public UserResponseDTO(Models.User user, string token)
         {
@@ -24,6 +30,13 @@ namespace DAL.DTOs.User
             Email = user.Email;
             UserName = user.Username;
             Token = token;
+            if (user.Role == Models.Enums.Role.Admin)
+            {
+                Admin = true;
+            } else
+            {
+                Admin = false;
+            }
         }
     }
 }

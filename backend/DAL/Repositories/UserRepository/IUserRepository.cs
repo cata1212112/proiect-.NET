@@ -11,5 +11,7 @@ namespace DAL.Repositories.UserRepository
     public interface IUserRepository : IGenericRepository<User>
     {
         public User GetByUserName(string username);
+
+        public User GetByEmail(string email);   
     }
 }
