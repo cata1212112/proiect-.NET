@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "./api.service";
+import {Params} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,14 @@ export class FileuploadService {
   uploadFile(file:File) {
     const formData = new FormData();
     formData.append('file', file);
-    console.log(formData);
-    return this.apiService.post_formData(this.route + '/uploadfile', formData);
+
+    return this.apiService.post_formData(this.route + '/uploadfile?location=false', formData);
+  }
+
+  getPhoto(path:string) {
+
+    const queyParams : URLSearchParams = new URLSearchParams();
+    queyParams.set('path', path);
+    return this.apiService.get(this.route + '/getimage?path='+path);
   }
 }

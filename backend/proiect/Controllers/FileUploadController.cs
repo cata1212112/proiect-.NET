@@ -18,6 +18,13 @@ namespace proiect.Controllers
             _pictureService = pictureService;
         }
 
+        [HttpGet("getimage")]
+        public IActionResult GetPicture([FromQuery] string path)
+        {
+            var image = System.IO.File.ReadAllBytes(@path);
+            return Ok(File(image, "image/jpeg"));
+        }
+
         [HttpPost("uploadfile"), DisableRequestSizeLimit]
         public async Task<IActionResult> UploadFile(IFormFile file, [FromQuery] bool location)
         {

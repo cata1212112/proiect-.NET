@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit{
     } else {
       let img:File = this.imagine;
       console.log(img.name, img.size, img.type);
-      if (img.type != "image/jpeg" && img.type != "image/jpg" && img.type != "image/png") {
+      if (img.type != "image/jpeg") {
         this.errorMessage = "Formatul fisierului nu este bun!";
         return;
       }
@@ -80,7 +80,8 @@ export class RegisterComponent implements OnInit{
           console.log(response);
           this.user.picture = response;
           console.log("asta e poza");
-
+          console.log(response);
+          console.log(this.user);
           this.authservice.registerUser(this.user).subscribe(response => {
             this.errorMessage = null;
             this.router.navigate(['/home']);

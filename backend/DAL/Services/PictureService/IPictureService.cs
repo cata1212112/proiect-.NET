@@ -1,4 +1,7 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +15,9 @@ namespace DAL.Services.PictureService
         Task<Guid> Create(ProfilePicture newProfilePicture);
 
         Task<Guid> InsertDefaultPicture();
+
+        String GetPath(Guid ID);
+
+        Task DeleteID(Guid id);
     }
 }

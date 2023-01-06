@@ -1,12 +1,15 @@
-﻿using DAL.DTOs.User;
+﻿using Azure;
+using DAL.DTOs.User;
 using DAL.Helpers.Attributes;
 using DAL.Models;
 using DAL.Models.Enums;
 using DAL.Services.PictureService;
 using DAL.Services.UserService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Encodings.Web;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace proiect.Controllers
@@ -36,13 +39,14 @@ namespace proiect.Controllers
                 Email = user.Email,
                 PasswordHash = BCryptNet.HashPassword(user.Password),
             };
-            if (user.PicturePath.Equals(String.Empty))
+            if (user.PictureID.Equals(String.Empty))
             {
                 userToCreate.PictueID = _pictureService.InsertDefaultPicture().Result;
             } else
             {
-                userToCreate.PictueID = _pictureService.Create(new ProfilePicture { Picture= user.PicturePath }).Result;
+                userToCreate.PictueID = new Guid(user.PictureID);
             }
+            Debug.WriteLine(userToCreate.PictueID);
             if (_userService.GetByUsername(userToCreate.Username) != null || _userService.GetByEmail(userToCreate.Email) != null) {
                 return BadRequest("Exista cineva cu usernameul sau emailul tau!");
             }
@@ -76,6 +80,7 @@ namespace proiect.Controllers
             {
                 return BadRequest("Username or password is invalid!");
             }
+            response.ProfilePicture = _pictureService.GetPath(_userService.GetPictureID(response.Id).Result);
             return Ok(response);
         }
 
@@ -86,11 +91,11 @@ namespace proiect.Controllers
             return Ok(_userService.GetAllUsers());
         }
 
-        [HttpGet("user/{id}")]
-        public IActionResult GetUser(Guid id)
+       /* [HttpGet("user/{id}")]
+        public IActionResult GetUser(string path)
         {
             return Ok(_userService.GetById(id));
-        }
+        }*/
 
         [HttpGet("user")]
         public IActionResult GetUserByName([FromQuery] string username)
@@ -101,11 +106,30 @@ namespace proiect.Controllers
             return Ok(rez);
         }
 
+        [HttpGet("userid")]
+        public IActionResult GetUserIdByName([FromQuery] string username)
+        {
+            var rez = _userService.GetByUsername(username);
+            Debug.WriteLine(rez == null);
+
+            return Ok(rez.Id);
+        }
+
         [HttpGet("isamdin")]
         public IActionResult CheckIfAdmin([FromQuery] string token)
         {
             var rez = _userService.IsAdmin(token);
             return Ok(rez);
+        }
+
+        [HttpPatch("changepicture/{id}/{newId}")]
+        public async Task<IActionResult> ChangeProfilePicture([FromRoute] string id, [FromRoute] string newId)
+        {
+             Guid oldPhoto = _userService.GetPictureID(new Guid(id)).Result;
+             await _userService.UpdateUser(id, newId);
+             var rasp = _pictureService.GetPath(_userService.GetPictureID(new Guid(id)).Result);
+            _pictureService.DeleteID(oldPhoto);
+             return Ok(System.Text.Encoding.UTF8.GetBytes(rasp));
         }
     }
 }

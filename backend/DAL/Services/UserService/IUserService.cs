@@ -1,6 +1,8 @@
 ﻿using DAL.DTOs;
 using DAL.DTOs.User;
 using DAL.Models;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,9 @@ namespace DAL.Services.UserService
         User GetByUsername(string username);
         User GetByEmail(string email);
 
+        Task<Guid> GetPictureID(Guid ID);
+
         bool IsAdmin(string token);
+        Task UpdateUser(string id, string newID);
     }
 }

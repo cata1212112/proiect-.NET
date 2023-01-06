@@ -13,6 +13,9 @@ using DAL.Helpers.JwtUtils;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace DAL.Services.UserService
 {
@@ -98,6 +101,18 @@ namespace DAL.Services.UserService
                 return true;
             }
             return false;
+        }
+
+        public async Task<Guid> GetPictureID(Guid ID)
+        {
+            var rez = await _userRepository.FindByIdAsync(ID);
+            return rez.PictueID;
+        }
+
+        public async Task UpdateUser(string id, string newID)
+        {
+            var rez =  await _userRepository.UpdateUser(id, newID);
+            await _userRepository.SaveAsync();
         }
     }
 }

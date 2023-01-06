@@ -4,6 +4,7 @@ import {AuthService} from "../../../core/services/auth.service";
 import {UserLogin} from "../../../DTOs/UserLogin";
 import {UserRegister} from "../../../DTOs/UserRegister";
 import {Router} from "@angular/router";
+import {LoggedUser} from "../../../DTOs/LoggedUser";
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,16 @@ export class LoginComponent {
     this.authservice.loginUser(usrlog).subscribe(response => {
       console.log("te ai logat fraiere");
       this.errorMessage = null;
-       this.authservice.loginUserLocalStorage(response);
+      console.log(response);
+      var loggedinUser:LoggedUser = new LoggedUser();
+      loggedinUser.username = response.userName;
+      loggedinUser.firstName = response.firstName;
+      loggedinUser.lastName = response.lastName;
+      loggedinUser.email = response.email;
+      loggedinUser.picture = response.profilePicture;
+      loggedinUser.admin = response.admin;
+      console.log(loggedinUser);
+       this.authservice.loginUserLocalStorage(loggedinUser);
       this.router.navigate(['/home']);
   },
       error => {

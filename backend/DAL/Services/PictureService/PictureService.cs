@@ -3,6 +3,7 @@ using DAL.Helpers.JwtUtils;
 using DAL.Models;
 using DAL.Repositories.PictureRepository;
 using DAL.Repositories.UserRepository;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,6 +38,17 @@ namespace DAL.Services.PictureService
             {
                 Picture = DefaultProfilePicture,
             });
+        }
+
+        public String GetPath(Guid ID)
+        {
+            return PictureRepository.FindByIdAsync(ID).Result.Picture;
+        }
+
+        public async Task DeleteID(Guid id)
+        {
+            PictureRepository.Delete(PictureRepository.FindByIdAsync(id).Result);
+            PictureRepository.SaveAsync();
         }
     }
 }

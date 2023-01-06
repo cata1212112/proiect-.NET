@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   registerUser(user:UserRegister) {
-    return this.apiService.post(this.route + '/create-user', {"userName":user.username, "password":user.password, "email":user.email, "firstName":user.firstName, "lastName":user.lastName, "picturePath":user.picture});
+    return this.apiService.post(this.route + '/create-user', {"userName":user.username, "password":user.password, "email":user.email, "firstName":user.firstName, "lastName":user.lastName, "PictureID":user.picture});
   }
 
   loginUser(user:UserLogin) {
@@ -46,6 +46,14 @@ export class AuthService {
   loginUserLocalStorage(user:LoggedUser) {
     this._localstorage.setItem("user", user);
     this.isAdmin();
+  }
+
+  getLoggedUser() {
+    var rez = this._localstorage.getItem('user');
+    if (rez != null) {
+      return JSON.parse(rez);
+    }
+    return null;
   }
 
   logOut() {

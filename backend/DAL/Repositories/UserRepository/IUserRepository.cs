@@ -1,5 +1,7 @@
 ﻿using DAL.Models;
 using DAL.Repositories.GenericRepository;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace DAL.Repositories.UserRepository
     {
         public User GetByUserName(string username);
 
-        public User GetByEmail(string email);   
+        public User GetByEmail(string email);
+        public Task<User> UpdateUser(string id, string newID);
     }
 }

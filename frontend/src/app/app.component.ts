@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {LoggedUser} from "./DTOs/LoggedUser";
 import {AuthService} from "./core/services/auth.service";
+import {LocalstorageService} from "./core/services/localstorage.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {AuthService} from "./core/services/auth.service";
 export class AppComponent {
   title = 'frontend';
 
-  constructor(private readonly authservice:AuthService) {
+  constructor(private readonly authservice:AuthService, private readonly _localstorage:LocalstorageService) {
   }
 
   isLogged() {
@@ -19,5 +20,13 @@ export class AppComponent {
 
   isAdmin() {
     return this.authservice.isAdmin();
+  }
+
+  getloggeduser() {
+    var rez = this._localstorage.getItem('user');
+    if (rez == null) {
+      return null;
+    }
+    return JSON.parse(rez);
   }
 }

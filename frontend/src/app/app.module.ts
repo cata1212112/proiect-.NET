@@ -17,6 +17,9 @@ import {FormsModule} from "@angular/forms";
 import {MatLegacyButtonModule} from "@angular/material/legacy-button";
 import {MatButtonModule} from "@angular/material/button";
 import { UserviewComponent } from './shared/userview/userview.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { UserviewComponent } from './shared/userview/userview.component';
     BrowserAnimationsModule,
     FormsModule,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -102,6 +102,8 @@ namespace DAL.Data
             foreach (var entityEntry in entries)
             {
                 Debug.WriteLine((BaseEntity)entityEntry.Entity);
+
+                Debug.WriteLine("hai ca vrei");
                 ((BaseEntity)entityEntry.Entity).DateModified = DateTime.Now;
 
                 if (entityEntry.State == EntityState.Added)

@@ -180,3 +180,6 @@ D:\proiect.NET\proiect-.NET\backend\proiect\obj\Debug\net6.0\proiect.genruntimec
 D:\proiect.NET\proiect-.NET\backend\proiect\obj\Debug\net6.0\ref\proiect.dll
 D:\proiect.NET\proiect-.NET\backend\proiect\bin\Debug\net6.0\AWSSDK.Core.dll
 D:\proiect.NET\proiect-.NET\backend\proiect\bin\Debug\net6.0\AWSSDK.S3.dll
+D:\proiect.NET\proiect-.NET\backend\proiect\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+D:\proiect.NET\proiect-.NET\backend\proiect\bin\Debug\net6.0\System.Web.Http.dll
+D:\proiect.NET\proiect-.NET\backend\proiect\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
