@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   registerUser(user:UserRegister) {
-    return this.apiService.post(this.route + '/create-user', {"userName":user.username, "password":user.password, "email":user.email, "firstName":user.firstName, "lastName":user.lastName, "picturePath":""});
+    return this.apiService.post(this.route + '/create-user', {"userName":user.username, "password":user.password, "email":user.email, "firstName":user.firstName, "lastName":user.lastName, "picturePath":user.picture});
   }
 
   loginUser(user:UserLogin) {

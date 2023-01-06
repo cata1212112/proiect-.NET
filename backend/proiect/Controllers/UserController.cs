@@ -39,6 +39,9 @@ namespace proiect.Controllers
             if (user.PicturePath.Equals(String.Empty))
             {
                 userToCreate.PictueID = _pictureService.InsertDefaultPicture().Result;
+            } else
+            {
+                userToCreate.PictueID = _pictureService.Create(new ProfilePicture { Picture= user.PicturePath }).Result;
             }
             if (_userService.GetByUsername(userToCreate.Username) != null || _userService.GetByEmail(userToCreate.Email) != null) {
                 return BadRequest("Exista cineva cu usernameul sau emailul tau!");
