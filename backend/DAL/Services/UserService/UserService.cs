@@ -70,6 +70,8 @@ namespace DAL.Services.UserService
             return Tuple.Create(users, admins);
         }
 
+    
+
         public UserResponseDTO GetByUserName(string username)
         {
             UserResponseDTO rez = _mapper.Map<UserResponseDTO>(_userRepository.GetByUserName(username));
@@ -151,6 +153,26 @@ namespace DAL.Services.UserService
             var user = _userRepository.FindByIdAsync(new Guid(id)).Result;
             user.Role = Models.Enums.Role.Admin;
             await _userRepository.SaveAsync();
+        }
+
+        public List<NormalUserDTO> GetAllUsersBasic()
+        {
+            List<NormalUserDTO> users = new List<NormalUserDTO>();
+            var join = _userRepository.GetAllAsync().Result.Join(_pictureRepository.GetAllAsync().Result, user => user.PictueID, picture => picture.Id, (user, picture) => new
+            {
+                user.Id,
+                user.Username,
+                user.FirstName,
+                user.LastName,
+                picture = picture.Picture
+            });
+
+            join.ToList().ForEach(x =>
+            {
+                users.Add(new NormalUserDTO(x.Id, x.Username, x.picture, x.FirstName, x.LastName));
+            });
+
+            return users;
         }
     }
 }

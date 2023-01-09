@@ -35,7 +35,7 @@ export class UserService {
   }
 
   getUserIdByUsername(username:any){
-    return this.apiService.get(this.route + '/userid', {username});
+    return this.apiService.get(this.route + '/userid?username=' + username);
   }
 
   deleteUser(id:string, token:string) {
@@ -56,6 +56,10 @@ export class UserService {
       }
     );
     return this.apiService.patch(this.route + '/makeAdmin', {},{headers:header});
+  }
+
+  AllUsers() {
+    return this.apiService.get(this.route + '/users')
   }
 
 }

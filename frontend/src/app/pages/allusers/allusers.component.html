@@ -1,0 +1,3 @@
+<li *ngFor="let user of users" id="utilizatori">
+  <app-userview [user]="user" (utilizatorApasat)="utilizatorApasat($event)"></app-userview>
+</li>

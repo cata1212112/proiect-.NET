@@ -42,4 +42,8 @@ export class MeniuComponent implements OnInit{
   gotoAdmin() {
     this.router.navigate(['/admin/dashboard']);
   }
+
+  goUsers() {
+    this.router.navigate(['/allusers/users']);
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoggedUser} from "../../DTOs/LoggedUser";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FileuploadService} from "../../core/services/fileupload.service";
@@ -13,7 +13,9 @@ import {Router, RouterModule} from "@angular/router";
   styleUrls: ['./userview.component.scss']
 })
 export class UserviewComponent implements OnInit{
+  @Input() potschimbapoza: boolean = false;
   @Input() user: LoggedUser = new LoggedUser();
+  @Output() utilizatorApasat = new EventEmitter<string>();
   public imagine:any = null;
 
   constructor(private sanitizer:DomSanitizer, private fileservice:FileuploadService, private userservice:UserService, private _localstorage:LocalstorageService, private authservice:AuthService, private router:Router){
@@ -76,5 +78,9 @@ export class UserviewComponent implements OnInit{
     this.fileservice.getPhoto(this.user.picture).subscribe(response => {
       this.imagine = 'data:image/jpeg;base64,' + response.fileContents;
     });
+  }
+
+  userApasat() {
+    this.utilizatorApasat.emit(this.user.username);
   }
 }

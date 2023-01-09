@@ -69,4 +69,13 @@ export class AuthService {
     }
   }
 
+  getId() {
+    var user = this.getLoggedUser();
+    if (user == null) {
+      return false;
+    } else {
+      return user.username;
+    }
+  }
+
 }

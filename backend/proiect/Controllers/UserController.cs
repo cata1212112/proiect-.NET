@@ -91,11 +91,17 @@ namespace proiect.Controllers
             return Ok(_userService.GetAllUsers());
         }
 
-       /* [HttpGet("user/{id}")]
-        public IActionResult GetUser(string path)
+        /* [HttpGet("user/{id}")]
+         public IActionResult GetUser(string path)
+         {
+             return Ok(_userService.GetById(id));
+         }*/
+
+        [HttpGet("users")] 
+        public IActionResult GetUsers()
         {
-            return Ok(_userService.GetById(id));
-        }*/
+            return Ok(_userService.GetAllUsersBasic());
+        }
 
         [HttpGet("user")]
         public IActionResult GetUserByName([FromQuery] string username)

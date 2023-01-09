@@ -25,6 +25,9 @@ builder.Services.AddServices();
 builder.Services.AddSeeders();
 builder.Services.AddUtils();
 
+///chat cu SignalR
+builder.Services.AddSignalR();
+
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

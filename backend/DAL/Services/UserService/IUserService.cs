@@ -30,5 +30,7 @@ namespace DAL.Services.UserService
         Task DeleteUser(string id);
 
         public Task MakeAdmin(string id);
+
+        List<NormalUserDTO> GetAllUsersBasic();
     }
 }

@@ -20,6 +20,8 @@ import { UserviewComponent } from './shared/userview/userview.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import { AllusersComponent } from './pages/allusers/allusers.component';
+import { ChatComponent } from './pages/allusers/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatMenuModule,
   ],
   providers: [],
+  exports: [
+    UserviewComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
