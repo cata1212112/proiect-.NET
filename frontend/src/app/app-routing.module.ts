@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./pages/home/home.component";
 import {RegisterComponent} from "./pages/auth/register/register.component";
 import {LoginComponent} from "./pages/auth/login/login.component";
+import {AdminModule} from "./pages/admin/admin.module";
+
 import {AuthGuard} from "./core/guards/auth.guard";
+import {AdminGuard} from "./core/guards/admin.guard";
 
 const routes: Routes = [
   {
@@ -16,11 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
     loadChildren: () => import('./pages/admin/admin.module').then(a => a.AdminModule)
   },
   {
     path: 'auth',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/auth/auth.module').then(a => a.AuthModule)
   }
 ];

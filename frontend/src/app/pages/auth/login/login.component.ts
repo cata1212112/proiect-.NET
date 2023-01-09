@@ -34,6 +34,7 @@ export class LoginComponent {
       loggedinUser.email = response.email;
       loggedinUser.picture = response.profilePicture;
       loggedinUser.admin = response.admin;
+      loggedinUser.token = response.token;
       console.log(loggedinUser);
        this.authservice.loginUserLocalStorage(loggedinUser);
       this.router.navigate(['/home']);

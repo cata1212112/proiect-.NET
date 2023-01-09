@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LoggedUser} from "../../DTOs/LoggedUser";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FileuploadService} from "../../core/services/fileupload.service";
@@ -12,7 +12,7 @@ import {Router, RouterModule} from "@angular/router";
   templateUrl: './userview.component.html',
   styleUrls: ['./userview.component.scss']
 })
-export class UserviewComponent {
+export class UserviewComponent implements OnInit{
   @Input() user: LoggedUser = new LoggedUser();
   public imagine:any = null;
 
@@ -20,16 +20,6 @@ export class UserviewComponent {
   }
 
   image(url:string) {
-    if (this.imagine == null) {
-      this.fileservice.getPhoto(url).subscribe(response => {
-        // this.imagine =  btoa(String.fromCharCode.apply(null, response.fileContents));
-        this.imagine = 1;
-
- ///       console.log(String.fromCharCode.apply(null,response));
- //        console.log(response.fileContents);
-         this.imagine = 'data:image/jpeg;base64,' + response.fileContents;
-      });
-    }
     return this.imagine;
   }
 
@@ -80,5 +70,11 @@ export class UserviewComponent {
         }
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.fileservice.getPhoto(this.user.picture).subscribe(response => {
+      this.imagine = 'data:image/jpeg;base64,' + response.fileContents;
+    });
   }
 }

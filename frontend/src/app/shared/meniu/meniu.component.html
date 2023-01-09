@@ -3,6 +3,6 @@
   <button mat-raised-button (click)="goPosts()" class="buton1" id="posts">Posts</button>
   <button *ngIf="!isLogged" mat-raised-button class="buton1" (click)="onSubmit()" id="login">Log in</button>
   <button *ngIf="!isLogged" mat-raised-button class="buton1" (click)="signup()" id="register">Sign up</button>
-  <button *ngIf="isAdmin" mat-raised-button class="buton1" (click)="signup()" id="admin_dashboard">AdminDashboard</button>
+  <button *ngIf="isAdmin" mat-raised-button class="buton1" (click)="gotoAdmin()" id="admin_dashboard">AdminDashboard</button>
   <button *ngIf="isLogged" mat-raised-button class="buton1" (click)="logout()" id="logout">Logout</button>
 </div>

@@ -13,7 +13,7 @@ export class ApiService {
   constructor(private readonly httpClient: HttpClient) { }
 
   get<T>(path: string, params = {}): Observable<any> {
-    return this.httpClient.get<T>(`${this.apiUrl}${path}`, { params });
+    return this.httpClient.get<T>(`${this.apiUrl}${path}`, params);
   }
 
   put<T>(path: string, body = {}): Observable<any> {
@@ -31,9 +31,11 @@ export class ApiService {
     return this.httpClient.post<T>(`${this.apiUrl}${path}`, body);
   }
 
-  delete<T>(path: string): Observable<any> {
-    return this.httpClient.delete<T>(`${this.apiUrl}${path}`);
+  delete<T>(path: string, headers= {} = {}): Observable<any> {
+    return this.httpClient.delete<T>(`${this.apiUrl}${path}`, { headers: headers });
   }
+
+
 
   patch<T>(path:String, patchDoc={}, options={}):Observable<any> {
     return this.httpClient.patch<T>(`${this.apiUrl}${path}`, patchDoc, options);

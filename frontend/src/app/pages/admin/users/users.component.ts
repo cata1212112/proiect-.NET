@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../../core/services/user.service";
+import {AuthService} from "../../../core/services/auth.service";
+import {UserAdmin} from "../../../DTOs/UserAdmin";
 
 @Component({
   selector: 'app-users',
@@ -7,13 +9,13 @@ import {UserService} from "../../../core/services/user.service";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit{
-  public users:any = []
+  @Input() users:any = []
+  @Input() isForAdmins:any = false;
 
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService, private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.users = this.userService.getAllUsers().subscribe(data => this.users = data);
   }
 
 }

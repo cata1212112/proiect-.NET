@@ -16,33 +16,58 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Formatters.Json;
 using Microsoft.AspNetCore.JsonPatch;
+using DAL.Repositories.PictureRepository;
 
 namespace DAL.Services.UserService
 {
     public class UserService : IUserService
     {
         public IUserRepository _userRepository;
+        public IPictureRepository _pictureRepository;
         private readonly IMapper _mapper;
         private IJwtUtils _jwtUtils;
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IMapper mapper)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IMapper mapper, IPictureRepository picture)
         {
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
             _mapper = mapper;
+            _pictureRepository = picture;
         }
 
-        public List<UserResponseDTO> GetAllUsers()
+        public Tuple<List<UserAdminResponseDTO>, List<UserAdminResponseDTO>> GetAllUsers()
         {
-            List<UserResponseDTO> rez = new List<UserResponseDTO>();
-
-            var lista = _userRepository.GetAllAsync();
-
-            foreach (var elem in lista.Result)
+            List<UserAdminResponseDTO> users = new List<UserAdminResponseDTO>();
+            List<UserAdminResponseDTO> admins = new List<UserAdminResponseDTO>();
+            var join = _userRepository.GetAllAsync().Result.Join(_pictureRepository.GetAllAsync().Result, user => user.PictueID, picture => picture.Id, (user ,picture) => new
             {
-                rez.Add(_mapper.Map<UserResponseDTO>(elem));
-            }
-            return rez;
+                user.Id,
+                user.Username,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.Role,
+                picture = picture.Picture
+            }).GroupBy(x => x.Role);
+
+            join.ToList().ForEach(x =>
+            {
+                if (x.Key == Models.Enums.Role.User)
+                {
+                    foreach (var usr in x.ToList())
+                    {
+                        users.Add(new UserAdminResponseDTO(usr.Id, usr.Username, usr.Email, usr.FirstName, usr.LastName, usr.picture));
+                    }
+                } else
+                {
+                    foreach (var usr in x.ToList())
+                    {
+                        admins.Add(new UserAdminResponseDTO(usr.Id, usr.Username, usr.Email, usr.FirstName, usr.LastName, usr.picture));
+                    }
+                }
+            });
+
+            return Tuple.Create(users, admins);
         }
 
         public UserResponseDTO GetByUserName(string username)
@@ -112,6 +137,19 @@ namespace DAL.Services.UserService
         public async Task UpdateUser(string id, string newID)
         {
             var rez =  await _userRepository.UpdateUser(id, newID);
+            await _userRepository.SaveAsync();
+        }
+
+        public async Task DeleteUser(string id)
+        {
+            _userRepository.Delete(_userRepository.FindByIdAsync(new Guid(id)).Result);
+            await _userRepository.SaveAsync();
+        }
+
+        public async Task MakeAdmin(string id)
+        {
+            var user = _userRepository.FindByIdAsync(new Guid(id)).Result;
+            user.Role = Models.Enums.Role.Admin;
             await _userRepository.SaveAsync();
         }
     }

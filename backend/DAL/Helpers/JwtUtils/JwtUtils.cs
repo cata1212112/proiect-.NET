@@ -46,6 +46,7 @@ namespace DAL.Helpers.JwtUtils
 
         public Guid ValidateJwtToken(string token)
         {
+            Debug.WriteLine(token);
             if (token == null)
             {
                 return Guid.Empty;

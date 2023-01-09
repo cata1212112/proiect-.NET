@@ -47,8 +47,9 @@ namespace DAL.Services.PictureService
 
         public async Task DeleteID(Guid id)
         {
+            Debug.WriteLine(id);
             PictureRepository.Delete(PictureRepository.FindByIdAsync(id).Result);
-            PictureRepository.SaveAsync();
+            await PictureRepository.SaveAsync();
         }
     }
 }

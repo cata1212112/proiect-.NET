@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {ApiService} from "./api.service";
 import * as Console from "console";
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,17 @@ export class UserService {
     return this.apiService.get(this.route + '/user/', { id });
   }
 
-  getAllUsers() {
-    return this.apiService.get(this.route + '/user/allusers');
+  getAllUsersAdmin(token:string) {
+    var header: HttpHeaders = new HttpHeaders(
+      {
+        'Authorization':token,
+      }
+    );
+    var headers = {
+      headers:header
+    }
+    console.log(header);
+    return this.apiService.get(this.route + '/allusersadmin', headers);
   }
 
   changeprofilepicture(userID:any, newId:string) {
@@ -26,6 +36,26 @@ export class UserService {
 
   getUserIdByUsername(username:any){
     return this.apiService.get(this.route + '/userid', {username});
+  }
+
+  deleteUser(id:string, token:string) {
+    var header: HttpHeaders = new HttpHeaders(
+      {
+        'Authorization':token,
+        'id':id
+      }
+    );
+    return this.apiService.delete(this.route + '/deleteid', header);
+  }
+
+  MakeAdmin(id:string, token:string) {
+    var header: HttpHeaders = new HttpHeaders(
+      {
+        'Authorization':token,
+        'id':id
+      }
+    );
+    return this.apiService.patch(this.route + '/makeAdmin', {},{headers:header});
   }
 
 }

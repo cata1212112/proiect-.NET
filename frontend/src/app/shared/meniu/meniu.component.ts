@@ -38,4 +38,8 @@ export class MeniuComponent implements OnInit{
     this.authservice.logOut();
     this.router.navigate(['/home']);
   }
+
+  gotoAdmin() {
+    this.router.navigate(['/admin/dashboard']);
+  }
 }

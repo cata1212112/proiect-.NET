@@ -13,7 +13,7 @@ namespace DAL.Services.UserService
 {
     public interface IUserService
     {
-        List<UserResponseDTO> GetAllUsers();
+        Tuple<List<UserAdminResponseDTO>, List<UserAdminResponseDTO>> GetAllUsers();
 
         UserResponseDTO Atuhentificate(UserAuthDTO model);
         Task Create(User newUser);
@@ -26,5 +26,9 @@ namespace DAL.Services.UserService
 
         bool IsAdmin(string token);
         Task UpdateUser(string id, string newID);
+
+        Task DeleteUser(string id);
+
+        public Task MakeAdmin(string id);
     }
 }

@@ -85,7 +85,7 @@ namespace proiect.Controllers
         }
 
         [Authorization(Role.Admin)]
-        [HttpGet("allusers")]
+        [HttpGet("allusersadmin")]
         public IActionResult GetAllUsers()
         {
             return Ok(_userService.GetAllUsers());
@@ -128,8 +128,29 @@ namespace proiect.Controllers
              Guid oldPhoto = _userService.GetPictureID(new Guid(id)).Result;
              await _userService.UpdateUser(id, newId);
              var rasp = _pictureService.GetPath(_userService.GetPictureID(new Guid(id)).Result);
-            _pictureService.DeleteID(oldPhoto);
+             await _pictureService.DeleteID(oldPhoto);
              return Ok(System.Text.Encoding.UTF8.GetBytes(rasp));
+        }
+
+        [Authorization(Role.Admin)]
+        [HttpPatch("makeAdmin")]
+        public async Task<IActionResult> MakeAdmin([FromHeader] string id)
+        {
+            _userService.MakeAdmin(id);
+            return Ok();
+        }
+
+        [Authorization(Role.Admin)]
+        [HttpDelete("deleteid")]
+        public async Task<IActionResult> DeleteUserById([FromHeader] string ID)
+        {
+            Guid pictureId = _userService.GetPictureID(new Guid(ID)).Result;
+            await _userService.DeleteUser(ID);
+            Debug.WriteLine("idul pozei este");
+            Debug.WriteLine(pictureId);
+            await _pictureService.DeleteID(pictureId);
+
+            return Ok();
         }
     }
 }

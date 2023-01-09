@@ -60,4 +60,13 @@ export class AuthService {
     this._localstorage.removeItem("user");
   }
 
+  getToken() {
+    var user = this.getLoggedUser();
+    if (user == null) {
+      return false;
+    } else {
+      return user.token;
+    }
+  }
+
 }

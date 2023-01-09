@@ -6,6 +6,9 @@ import {UsersComponent} from "./users/users.component";
 import {UserComponent} from "./user/user.component";
 import {MatLegacyListModule} from "@angular/material/legacy-list";
 import {AdminRoutingModule} from "./admin-routing.module";
+import {MatLegacyCardModule} from "@angular/material/legacy-card";
+import {MatIconModule} from "@angular/material/icon";
+import {MatLegacyButtonModule} from "@angular/material/legacy-button";
 
 
 
@@ -14,7 +17,10 @@ import {AdminRoutingModule} from "./admin-routing.module";
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatLegacyListModule
+    MatLegacyListModule,
+    MatLegacyCardModule,
+    MatIconModule,
+    MatLegacyButtonModule
   ]
 })
 export class AdminModule { }
